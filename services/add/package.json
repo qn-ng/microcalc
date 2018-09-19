@@ -1,0 +1,21 @@
+{
+  "name": "me.foly.microcalc.add",
+  "version": "0.0.1",
+  "description": "1+1=2",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start:dev": "pm2-dev index.js"
+  },
+  "author": "crazyfolyme@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "debug": "^3.1.0",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "pm2": "^3.0.4"
+  }
+}

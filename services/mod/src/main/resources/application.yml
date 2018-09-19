@@ -1,0 +1,4 @@
+mc:
+  mult_endpoint: 'http://mult/api'
+  div_endpoint: 'http://div/api'
+  sub_endpoint: 'http://sub/api'
