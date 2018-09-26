@@ -1,8 +1,9 @@
 FROM maven:3-jdk-8-alpine as builder
 
-RUN mkdir /app
-COPY . /app
+COPY pom.xml /app/
 WORKDIR /app
+RUN mvn verify -fn
+COPY . /app
 RUN mvn clean package
 
 FROM openjdk:8-jre-alpine

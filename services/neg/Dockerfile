@@ -1,7 +1,12 @@
 FROM microsoft/dotnet:2.1-sdk as builder
-COPY . /app
+
+
+COPY app.csproj /app/
 WORKDIR /app
-RUN dotnet restore && dotnet build -c Release -o output
+RUN dotnet restore
+
+COPY . /app
+RUN dotnet build -c Release -o output
 
 FROM microsoft/dotnet:2.1-aspnetcore-runtime-alpine
 COPY --from=builder /app/output /app

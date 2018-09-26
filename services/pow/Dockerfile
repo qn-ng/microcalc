@@ -1,9 +1,11 @@
 FROM node:8-alpine as builder
 
-COPY . /app
+COPY package.json package-lock.json /app/
 WORKDIR /app
 
 RUN npm install
+
+COPY . /app
 
 FROM node:8-alpine
 

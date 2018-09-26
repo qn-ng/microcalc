@@ -1,10 +1,12 @@
 FROM golang:1.11 as builder
 
-COPY . /go/src/app/
-WORKDIR /go/src/app
-
 RUN go get -u github.com/golang/dep/...
-RUN dep ensure
+
+COPY Gopkg.toml Gopkg.lock /go/src/app/
+WORKDIR /go/src/app
+RUN dep ensure -vendor-only
+
+COPY . /go/src/app/
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo
 
 FROM alpine:latest
