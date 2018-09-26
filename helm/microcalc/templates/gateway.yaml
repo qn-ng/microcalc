@@ -1,0 +1,48 @@
+{{- if .Values.istioGateway.enabled -}}
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: microcalc
+  labels:
+    app: microcalc
+    chart: microcalc
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    {{- range .Values.istioGateway.hosts }}
+      - {{ . }}
+    {{- end }}
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: microcalc
+  labels:
+    app: microcalc
+    chart: microcalc
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+spec:
+  hosts:
+  {{- range .Values.istioGateway.hosts }}
+    - {{ . }}
+  {{- end }}
+  gateways:
+  - microcalc
+  http:
+  - match:
+{{ toYaml .Values.istioGateway.match | indent 4 -}}
+    route:
+    - destination:
+        host: parser
+        port:
+          number: 80
+{{- end }}

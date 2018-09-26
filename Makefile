@@ -1,7 +1,7 @@
 IMAGE_PREFIX := foly/microcalc
 SERVICES := add sub mult div neg mod pow parser
 
-.PHONY: all build push clean
+.PHONY: all build push clean helm helm-clean
 all: build
 
 build:
@@ -24,3 +24,13 @@ clean:
 
 clean-%:
 	@docker rmi "${IMAGE_PREFIX}-$*" || true
+
+helm:
+	@mkdir -p helm/dist
+	@helm serve --repo-path helm/dist &
+	@helm package -d helm/dist helm/microcalc
+	@helm repo index helm/dist
+
+helm-clean:
+	@pkill helm
+	@rm -rf helm/dist

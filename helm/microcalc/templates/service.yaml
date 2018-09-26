@@ -1,0 +1,23 @@
+{{- range .Values.opServices }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .name }}
+  labels:
+    app: microcalc-{{ .name }}
+    chart: microcalc
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+spec:
+  selector:
+    app: microcalc-{{ .name }}
+    release: {{ $.Release.Name }}
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+
+---
+
+{{ end }}

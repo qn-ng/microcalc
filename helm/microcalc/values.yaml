@@ -1,0 +1,72 @@
+# Default values for helm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: foly/microcalc
+  tag: latest
+  pullPolicy: Always
+
+istioGateway:
+  enabled: true
+  match:
+    - uri:
+        prefix: /
+  hosts:
+    - your.domain
+
+opServices:
+- name: add
+  httpPort: 3000
+- name: sub
+  httpPort: 8000
+- name: mult
+  httpPort: 8080
+- name: div
+  httpPort: 5000
+- name: neg
+  httpPort: 80
+  env:
+    ASPNETCORE_MULT_ENDPOINT: 'http://mult/api/v1/mult'
+- name: pow
+  httpPort: 3000
+  env:
+    MULT_ENDPOINT: 'http://mult/api/v1/mult'
+- name: mod
+  httpPort: 8080
+  env:
+    MC_MULT_ENDPOINT: 'http://mult/api/v1/mult'
+    MC_DIV_ENDPOINT: 'http://div/api/v1/div'
+    MC_SUB_ENDPOINT: 'http://sub/api/v1/sub'
+- name: parser
+  httpPort: 8080
+  env:
+    ADD_HOST: 'add'
+    ADD_PORT: 80
+    ADD_URI: '/api/v1/add'
+
+    SUB_HOST: 'sub'
+    SUB_PORT: 80
+    SUB_URI: '/api/v1/sub'
+
+    DIV_HOST: 'div'
+    DIV_PORT: 80
+    DIV_URI: '/api/v1/div'
+
+    MULT_HOST: 'mult'
+    MULT_PORT: 80
+    MULT_URI: '/api/v1/mult'
+
+    NEG_HOST: 'neg'
+    NEG_PORT: 80
+    NEG_URI: '/api/v1/neg'
+
+    POW_HOST: 'pow'
+    POW_PORT: 80
+    POW_URI: '/api/v1/pow'
+
+    MOD_HOST: 'mod'
+    MOD_PORT: 80
+    MOD_URI: '/api/v1/mod'

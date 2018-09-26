@@ -1,0 +1,49 @@
+{{- range .Values.opServices }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .name }}
+  labels:
+    app: microcalc-{{ .name }}
+    chart: microcalc
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+spec:
+  replicas: {{ .replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      app: microcalc-{{ .name }}
+      release: {{ $.Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: microcalc-{{ .name }}
+        release: {{ $.Release.Name }}
+    spec:
+      containers:
+        - name: {{ .name }}
+          image: "{{ $.Values.image.repository }}-{{ .name }}:{{ $.Values.image.tag }}"
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .httpPort }}
+              protocol: TCP
+          # livenessProbe:
+          #   httpGet:
+          #     path: /api/v1/status
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /api/v1/status
+          #     port: http
+{{- if .env }}
+          env:
+          {{- range $key,$value := .env }}
+          - name: {{ quote $key }}  
+            value: {{ quote $value }}
+          {{- end }}
+{{- end }}
+
+---
+
+{{ end }}
