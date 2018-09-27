@@ -17,7 +17,7 @@ class PostDiv(Resource):
         body = request.get_json()
         ops = body['operands'] if body is not None else []
 
-        if (len(ops) != 2 or ops[1] == 0):
+        if (len(ops) != 2 or int(ops[1]) == 0):
             return abort(400, error='Invalid Input', service=APP_SERVICE)
 
         op1,op2 = ops
