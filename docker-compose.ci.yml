@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  robot:
+    build: robots
+    depends_on:
+    - parser
+    - add
+    - sub
+    - div
+    - mult
+    - neg
+    - pow
+    - mod
