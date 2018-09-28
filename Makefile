@@ -1,5 +1,5 @@
 IMAGE_PREFIX := foly/microcalc
-SERVICES := add sub mult div neg mod pow parser
+SERVICES := add sub mult div neg mod pow parser robot
 
 .PHONY: all build push clean helm helm-clean
 all: build

@@ -4,5 +4,6 @@ RUN pip install requests robotframework robotframework-requests
 
 COPY . /app
 WORKDIR /app
+VOLUME /results
 
 CMD ["robot", "--outputdir=/results", "tests.robot"]

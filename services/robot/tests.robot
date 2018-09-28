@@ -1,18 +1,7 @@
 *** Settings *** 				
 Library 	Collections 			
-Library 	RequestsLibrary 			
-
-*** Variables ***
-${PATH_PREFIX}= 	/api/v1
-&{PARSER}= 	host=parser 	port=8080 	uri=${PATH_PREFIX}/calculate
-&{ADD}= 	host=add 	port=3000 	uri=${PATH_PREFIX}/add
-&{SUB}= 	host=sub 	port=8000 	uri=${PATH_PREFIX}/sub
-&{DIV}= 	host=div 	port=5000 	uri=${PATH_PREFIX}/div
-&{MULT}= 	host=mult 	port=8080 	uri=${PATH_PREFIX}/mult
-&{NEG}= 	host=neg 	port=80 	uri=${PATH_PREFIX}/neg
-&{POW}= 	host=pow 	port=3000 	uri=${PATH_PREFIX}/pow
-&{MOD}= 	host=mod 	port=8080 	uri=${PATH_PREFIX}/mod
-@{SERVICES}= 	&{ADD} 	&{SUB} 	&{DIV} 	&{MULT} 	&{NEG} 	&{POW} 	&{MOD}
+Library 	RequestsLibrary
+Variables 	variables.py
 
 *** Test Cases *** 				
 Healthcheck all services

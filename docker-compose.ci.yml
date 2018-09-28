@@ -2,7 +2,7 @@ version: '3'
 
 services:
   robot:
-    build: robots
+    build: services/robot
     depends_on:
     - parser
     - add
@@ -12,3 +12,12 @@ services:
     - neg
     - pow
     - mod
+    environment:
+      MC_ADD: '{"host": "add", "port": "3000"}'
+      MC_SUB: '{"host": "sub", "port": "8000"}'
+      MC_DIV: '{"host": "div", "port": "5000"}'
+      MC_MULT: '{"host": "mult", "port": "8080"}'
+      MC_NEG: '{"host": "neg", "port": "80"}'
+      MC_POW: '{"host": "pow", "port": "3000"}'
+      MC_MOD: '{"host": "mod", "port": "8080"}'
+      MC_PARSER: '{"host": "parser", "port": "8080"}'
