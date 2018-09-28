@@ -1,6 +1,30 @@
 # MicroCalc: A dead-simple, polyglot, microservice-oriented calculator
 
-*Built with Istio and ❤️*
+## Deploy to Kubernetes (Istio required)
+
+**Requirements:** helm
+
+**Commands:**
+
+- Modify `helm/microcalc/values.yaml` and update your domain name
+- Execute the following commands to deploy microcalc
+```shell
+$ kubectl create namespace microcalc
+$ kubectl label namespace microcalc -l istio-injection=enabled
+$ helm template helm/microcalc | kubectl apply -n microcalc -f -
+```
+
+The application will be accessible at:
+
+- Parser service: http://APP_DOMAIN
+
+**Run acceptance tests (as Job):** 
+```shell
+$ kubectl run robot -n microcalc --image=foly/microcalc-robot --restart=OnFailure -l 'app=microcalc-robot'
+
+$ export POD_NAME=$(kubectl get pod -l 'app=microcalc-robot' -n microcalc -o jsonpath --template='{.items[0].metadata.name}')
+$ kubectl logs $POD_NAME -n microcalc
+```
 
 ## Local run
 
@@ -12,26 +36,7 @@ The application will be accessible at:
 
 - Parser service: http://localhost:8080
 
-## Deploy to Kubernetes (Istio required)
-
-**Requirements:** docker, nodejs, kubectl
-
-**Commands:**
-
-- Modify [build-images.sh](build-images.sh) and replace the **PROJECT_ID** and **IMAGE_PREFIX** variables with proper values
-- Modify [gen-k8s.js](gen-k8s.js) and replace the **IMG_PREFIX** and **APP_HOSTNAME** with proper values
-- Execute the following commands to build application images, push it to the private docker registry and generate the deployment template for Kubernetes:
-```shell
-$ ./build-images
-$ node gen-k8s.js > deploy.yaml
-$ kubectl create namespace microcalc
-$ kubectl label namespace microcalc -l istio-injection=enabled
-$ kubectl apply -f deploy.yaml -n microcalc
-```
-
-The application will be accessible at:
-
-- Parser service: http://APP_HOSTNAME
+**Run acceptance tests:** `$ docker-compose -f docker-compose.yml -f docker-compose.ci.yml run --rm robot`
 
 ## Usage guide
 
