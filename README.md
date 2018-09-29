@@ -4,6 +4,8 @@
 
 ![architecture](diagrams/architecture.svg)
 
+![api](diagrams/api.gif)
+
 ## Deploy to Kubernetes (Istio required)
 
 **Requirements:** helm
@@ -51,9 +53,11 @@ The application will be accessible at:
 $ docker-compose -f docker-compose.yml -f docker-compose.ci.yml run --rm robot
 ```
 
+![robot](diagrams/robot.gif)
+
 ## Usage guide
 
-- Parser service
+- Parser service API
 
 ```
 POST /api/v1/calculate HTTP/1.1
