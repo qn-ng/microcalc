@@ -1,0 +1,46 @@
+digraph G {
+    graph [splines=ortho];
+    node [shape = point, height=0, width=0] 
+    01 02 03 04;
+    node [shape=record, height=1, width=1] parser add sub mult div mod neg pow;
+    node [shape = point, height=0, width=0] 
+    11 12 13 14 15;
+
+    parser [style=filled]
+    add [label="{add|out = in1 + in2}"];
+    sub [label="{sub|out = in1 - in2}"];
+    mult [label="{mult|out = in1 * in2}"];
+    div [label="{div|out = in1 / in2}"];
+    neg [label="{neg|out = -in}"];
+    pow [label="{pow|out = in1 ^ in2}"];
+    mod [label="{mod|out = in1 - (in1 / in2) * in2}"];
+    
+    edge [dir=none];
+    01 -> 02 -> 03 -> 04;
+    11 -> 12 -> 13 -> 14 -> 15;
+    parser -> 01 [constraint=false];
+    parser -> 11 [constraint=false];
+    
+    edge [dir=forward, minlen=2];
+    {rank=same; 02 neg;}
+    {rank=same; 03 mod;}
+    {rank=same; 04 pow;}
+    02 -> neg;
+    03 -> mod;
+    04 -> pow;
+
+    edge [dir=back];
+    {rank=same; 12 add;}
+    {rank=same; 13 mult;}
+    {rank=same; 14 sub;}
+    {rank=same; 15 div;}
+    add -> 12;
+    mult -> 13;
+    sub -> 14;
+    div -> 15;
+    
+    edge [style=dashed, constraint=false, minlen=10]
+    mult -> neg;
+    {sub,mult,div} -> mod;
+    mult -> pow;
+}

@@ -1,5 +1,9 @@
 # MicroCalc: A dead-simple, polyglot, microservice-oriented calculator
 
+## Services architecture
+
+![architecture](diagrams/architecture.svg)
+
 ## Deploy to Kubernetes (Istio required)
 
 **Requirements:** helm
@@ -17,8 +21,11 @@ $ helm template helm/microcalc | kubectl apply -n microcalc -f -
 The application will be accessible at:
 
 - Parser service: http://APP_DOMAIN
+    - GET /api/v1/status
+    - POST /api/v1/calculate
 
 **Run acceptance tests (as Job):** 
+
 ```shell
 $ kubectl run robot -n microcalc --image=foly/microcalc-robot --restart=OnFailure -l 'app=microcalc-robot'
 
@@ -35,8 +42,14 @@ $ kubectl logs $POD_NAME -n microcalc
 The application will be accessible at:
 
 - Parser service: http://localhost:8080
+    - GET /api/v1/status
+    - POST /api/v1/calculate
 
-**Run acceptance tests:** `$ docker-compose -f docker-compose.yml -f docker-compose.ci.yml run --rm robot`
+**Run acceptance tests:**
+
+```shell
+$ docker-compose -f docker-compose.yml -f docker-compose.ci.yml run --rm robot
+```
 
 ## Usage guide
 
