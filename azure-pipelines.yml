@@ -1,0 +1,20 @@
+jobs:
+- job: TEST
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  steps:
+  - script: |
+      make build
+      sleep 1m
+      docker-compose -f docker-compose.yml -f docker-compose.ci.yml run --rm robot
+    displayName: 'Execute acceptance tests'
+- job: PUBLISH
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  dependsOn: TEST
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  steps:
+  - script: |
+      make build
+      make push
+    displayName: 'Push services images'
