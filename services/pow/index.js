@@ -36,7 +36,8 @@ router
 
         const headers = TRACING_HEADERS
             .map(header => [header, req.header(header)])
-            .filter(p => p[1] !== undefined);
+            .filter(p => p[1] !== undefined)
+            .reduce((acc, [name, value]) => Object.assign({ [name]: value }, acc), {});
         const axiosOpts = Object.assign(
             {},
             { headers: headers },
