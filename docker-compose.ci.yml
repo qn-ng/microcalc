@@ -3,6 +3,7 @@ version: '3'
 services:
   robot:
     build: services/robot
+    image: ${IMAGE_PREFIX}-robot
     depends_on:
     - parser
     - add

@@ -1,29 +1,25 @@
-IMAGE_PREFIX := foly/microcalc
-SERVICES := add sub mult div neg mod pow parser robot
+DOCO := @docker-compose -f docker-compose.yml -f docker-compose.ci.yml
 
 .PHONY: all build push clean helm helm-clean
 all: build
 
 build:
-	@echo "\nBuilding service [$@]"
-	@make $(addprefix build-, $(SERVICES))
+	${DOCO} build
 
 build-%:
-	@docker build -t "${IMAGE_PREFIX}-$*" "services/$*"
+	${DOCO} build $*
 
 push:
-	@echo "\nPushing service [$@]"
-	@make $(addprefix push-, $(SERVICES))
+	${DOCO} push
 
-push-%: build-%
-	@docker push "${IMAGE_PREFIX}-$*"
+push-%:
+	${DOCO} push $*
 
 clean:
-	@echo "\nCleaning service [$@]"
-	@make $(addprefix clean-, $(SERVICES))
+	${DOCO} down -v --rmi all
 
 clean-%:
-	@docker rmi "${IMAGE_PREFIX}-$*" || true
+	${DOCO} down -v --rmi all $*
 
 helm:
 	@mkdir -p helm/dist
