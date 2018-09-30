@@ -12,7 +12,10 @@ jobs:
   pool:
     vmImage: 'Ubuntu 16.04'
   dependsOn: TEST
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: >
+    and(succeeded(),
+        eq(variables['Build.SourceBranch'], 'refs/heads/master'),
+        eq(variables['Build.Reason'], 'Schedule'))
   steps:
   - script: |
       docker login -u $(dockerId) -p $pswd
