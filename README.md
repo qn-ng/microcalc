@@ -1,6 +1,8 @@
-# MicroCalc: A dead-simple, polyglot, microservice-oriented calculator
+# MicroCalc: A polyglot, microservice-oriented calculator
 
 [![Build Status](https://dev.azure.com/crazyfolyme/microcalc/_apis/build/status/Build.and.Push?branchName=master)](https://dev.azure.com/crazyfolyme/microcalc/_build/latest?definitionId=2)
+
+ℹ Looking for a microservice / service mesh sample app ? You might want to have a look at this.
 
 ## Services architecture
 
