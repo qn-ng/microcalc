@@ -23,6 +23,6 @@ public class MainVerticle extends AbstractVerticle {
 
     Router mainrouter = Router.router(vertx);
     mainrouter.mountSubRouter("/api/" + Env.APP_VERSION, apiRouter);
-    vertx.createHttpServer().requestHandler(mainrouter::accept).rxListen(8080).subscribe();
+    vertx.createHttpServer().requestHandler(mainrouter).rxListen(8080).subscribe();
   }
 }
