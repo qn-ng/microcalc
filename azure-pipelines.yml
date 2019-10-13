@@ -5,7 +5,7 @@ jobs:
   steps:
   - script: |
       make build
-      sleep 1m
+      sleep 2m
       docker-compose -f docker-compose.yml -f docker-compose.ci.yml run --rm robot
     displayName: 'Execute acceptance tests'
 - job: PUBLISH
