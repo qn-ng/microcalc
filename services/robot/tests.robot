@@ -53,7 +53,7 @@ Test parser service
 *** Keywords ***
 Check Status
 	[Arguments] 	${url}
-	Create Session 	svc 	${url}
+	Create Session 	svc 	${url} 	max_retries=20 	backoff_factor=0.3
 	${resp}= 	Get Request 	svc 	${PATH_PREFIX}/status
 	Should Be Equal As Strings	${resp.status_code}	200 	
 	Dictionary Should Contain Item 	${resp.json()} 	data	OK
