@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 4 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Execute acceptance tests
+        run: |
+          make build
+          make ci
+      - name: Push to DockerHub
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PWD: ${{ secrets.DOCKER_PWD }}
+        if: success()
+        run: |
+          echo ${{ github.event }} ${{ github.event_name }}
+        # run: |
+        #   echo $DOCKER_PWD | docker login -u $DOCKER_USER --password-stdin
+        #   make build
+        #   make push

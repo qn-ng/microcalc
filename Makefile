@@ -9,6 +9,9 @@ build:
 build-%:
 	${DOCO} build $*
 
+ci:
+	${DOCO} run --rm robot
+
 push:
 	${DOCO} push
 
