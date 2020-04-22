@@ -21,7 +21,8 @@ jobs:
           DOCKER_PWD: ${{ secrets.DOCKER_PWD }}
         if: success()
         run: |
-          echo ${{ github.event }} ${{ github.event_name }}
+          echo ${{ github.event }} ${{ github.event_name }} ${{ github.ref }}
+          docker images
         # run: |
         #   echo $DOCKER_PWD | docker login -u $DOCKER_USER --password-stdin
         #   make build

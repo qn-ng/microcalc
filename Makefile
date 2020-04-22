@@ -4,7 +4,7 @@ DOCO := @docker-compose -f docker-compose.yml -f docker-compose.ci.yml
 all: build
 
 build:
-	${DOCO} build
+	${DOCO} build --parallel
 
 build-%:
 	${DOCO} build $*
