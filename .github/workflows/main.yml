@@ -4,7 +4,7 @@ on:
   push:
   pull_request:
   schedule:
-    - cron: "0 4 * * *"
+    - cron: "0 * * * *"
 
 jobs:
   build:
@@ -19,11 +19,9 @@ jobs:
         env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PWD: ${{ secrets.DOCKER_PWD }}
-        if: success()
+        if: success() && ${{ github.event_name == 'schedule'}} && ${{ github.ref == 'refs/heads/master'}}
         run: |
-          echo ${{ github.event }} ${{ github.event_name }} ${{ github.ref }}
-          docker images
-        # run: |
-        #   echo $DOCKER_PWD | docker login -u $DOCKER_USER --password-stdin
-        #   make build
-        #   make push
+          echo event_name=${{ github.event_name }}
+          echo $DOCKER_PWD | docker login -u $DOCKER_USER --password-stdin
+          make build
+          make push
