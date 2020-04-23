@@ -1,7 +1,10 @@
 FROM golang:1.14 as builder
 
-COPY . /app/
+COPY go.mod go.sum /app/
 WORKDIR /app
+RUN go mod download
+
+COPY . /app/
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo
 
 FROM alpine:latest

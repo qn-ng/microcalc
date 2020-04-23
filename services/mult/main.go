@@ -75,6 +75,7 @@ func handle(route string, method string, handler func(http.ResponseWriter, *http
 			rw.WriteHeader(http.StatusNotFound)
 			return
 		}
+		rw.Header().Set("Content-Type", "application/json")
 		handler(rw, req)
 	})
 }
