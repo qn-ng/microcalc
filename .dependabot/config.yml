@@ -9,7 +9,7 @@ update_configs:
   - package_manager: "java:maven"
     directory: "/services/mod"
     update_schedule: "daily"
-  - package_manager: "go:dep"
+  - package_manager: "go:modules"
     directory: "/services/mult"
     update_schedule: "daily"
   - package_manager: "dotnet:nuget"
