@@ -1,0 +1,123 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/services/add"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: y18n
+    versions:
+    - 4.0.1
+    - 4.0.2
+  - dependency-name: systeminformation
+    versions:
+    - 4.34.11
+    - 4.34.12
+    - 4.34.13
+    - 4.34.14
+    - 4.34.15
+    - 4.34.16
+    - 4.34.17
+    - 4.34.19
+    - 4.34.9
+  - dependency-name: pm2
+    versions:
+    - 4.5.2
+    - 4.5.4
+    - 4.5.5
+  - dependency-name: lodash
+    versions:
+    - 4.17.20
+- package-ecosystem: pip
+  directory: "/services/div"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+- package-ecosystem: maven
+  directory: "/services/mod"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: org.springframework.boot:spring-boot-starter-parent
+    versions:
+    - 2.4.2
+    - 2.4.3
+    - 2.4.4
+  - dependency-name: org.projectlombok:lombok
+    versions:
+    - 1.18.18
+- package-ecosystem: nuget
+  directory: "/services/neg"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+- package-ecosystem: maven
+  directory: "/services/parser"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: io.vertx:vertx-dependencies
+    versions:
+    - 4.0.0
+    - 4.0.1
+    - 4.0.2
+  - dependency-name: org.projectlombok:lombok
+    versions:
+    - 1.18.18
+- package-ecosystem: npm
+  directory: "/services/pow"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: y18n
+    versions:
+    - 4.0.1
+    - 4.0.2
+  - dependency-name: systeminformation
+    versions:
+    - 4.34.11
+    - 4.34.12
+    - 4.34.13
+    - 4.34.14
+    - 4.34.15
+    - 4.34.16
+    - 4.34.17
+    - 4.34.19
+    - 4.34.9
+  - dependency-name: pm2
+    versions:
+    - 4.5.2
+    - 4.5.4
+    - 4.5.5
+  - dependency-name: lodash
+    versions:
+    - 4.17.20
+- package-ecosystem: composer
+  directory: "/services/sub"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: slim/slim
+    versions:
+    - ">= 4.a, < 5"
+  - dependency-name: phpunit/phpunit
+    versions:
+    - 8.5.14
+- package-ecosystem: gomod
+  directory: "/services/mult"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
